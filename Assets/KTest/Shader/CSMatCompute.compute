@@ -1,0 +1,24 @@
+﻿#pragma kernel MatKernel
+
+RWStructuredBuffer<float4x4> _lmats;
+RWStructuredBuffer<float4x4> _wmats;
+RWStructuredBuffer<int> _matIdxs;
+float4x4 _roMat;
+int2 _ids;
+int _group;
+
+[numthreads(8,8,1)]
+void MatKernel(uint3 id : SV_DispatchThreadID)
+{
+    int idx = id.x * 8 * _group + id.y;
+    if(idx < _ids.x || idx > _ids.y)
+        return;
+    
+    int pidx = _matIdxs[idx];
+    if(pidx < 0){
+        _wmats[idx] = mul(_wmats[idx], _roMat);
+    } else {
+        _lmats[idx] = mul(_lmats[idx], _roMat);
+        _wmats[idx] = mul(_wmats[pidx], _lmats[idx]);
+    }
+}
