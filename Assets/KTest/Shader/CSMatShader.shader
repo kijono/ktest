@@ -34,7 +34,7 @@ Shader "KTest/CSMat"
 		
         void ConfigureSurface (Input input, inout SurfaceOutputStandard surface)
         {
-            surface.Albedo = saturate(input.worldPos * 0.5 + 0.5) * 0.5 + tex2D(_MainTex, input.uv_MainTex);
+            surface.Albedo = saturate(input.worldPos * 0.5 + 0.5) * 0.2 + tex2D(_MainTex, input.uv_MainTex);
             surface.Smoothness = _Smoothness;
         }
         

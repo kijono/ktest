@@ -35,7 +35,7 @@ namespace ktest{
         void Update(){
             UpdateFunc();
         }
-        
+
         void OnDestroy(){
             isStart = false;
         }
@@ -111,7 +111,7 @@ namespace ktest{
         private void UpdateCubes(){
             if(lvInfos.Count == 0) return;
             if(preFabLevel != fabLevel){
-                ResetFunc();
+                TestFunc();
             }
 
             if(rmesh == null){
